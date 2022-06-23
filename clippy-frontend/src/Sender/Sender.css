@@ -1,0 +1,57 @@
+.Sender {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Noto Sans;
+  font-size: 16px;
+}
+
+.Sender .wrapper {
+  width: 300px;
+  max-width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Sender .input-wrapper {
+  position: relative;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 10px;
+  padding-right: 40px;
+  width: calc(100% - 70px);
+}
+
+.Sender .secret-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 12px 10px;
+  cursor: pointer;
+}
+
+.Sender .button-container {
+  display: flex;
+  gap: 10px;
+  width: calc(100% - 19px);
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: end;
+}
+
+.Sender .button {
+  cursor: pointer;
+  background-color: rgb(231, 231, 231);
+  border-radius: 2px;
+  padding: 7px 10px;
+}
+
+.Sender input {
+  all: unset;
+  width: 100%;
+}

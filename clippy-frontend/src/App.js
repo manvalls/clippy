@@ -1,24 +1,19 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Receiver } from './Receiver'
+import { Sender } from './Sender'
 
 function App() {
+  const [hash, setHash] = useState(window.location.hash)
+
+  useEffect(() => {
+    window.onhashchange = () => {
+      setHash(window.location.hash)
+    }
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    hash ? <Sender socketId={window.location.hash.slice(1)} /> : <Receiver />
   );
 }
 
