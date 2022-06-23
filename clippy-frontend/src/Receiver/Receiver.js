@@ -8,7 +8,7 @@ export function Receiver() {
   const [data, setData] = useState()
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8090/socket')
+    const ws = new WebSocket('/socket')
 
     const onData = (e) => {
       setData(JSON.parse(e.data))

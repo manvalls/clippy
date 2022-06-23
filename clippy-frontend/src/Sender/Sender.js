@@ -15,7 +15,7 @@ export function Sender({ readOnly, value, secret, socketId }) {
 
     setSent(true)
 
-    fetch('http://localhost:8090/post', {
+    fetch('/post', {
       method: 'POST',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
