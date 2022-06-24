@@ -62,7 +62,6 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ws.WriteMessage(websocket.TextMessage, []byte(message))
-	ws.Close()
 }
 
 func main() {
