@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './Sender.css';
 
 export function Sender({ readOnly, value, secret, socketId }) {
-  const [ isSecret, setIsSecret ] = useState(readOnly ? secret : true)
-  const [ stateValue, setStateValue ] = useState(readOnly ? value : '')
+  const [ isSecret, setIsSecret ] = useState(true)
+  const [ stateValue, setStateValue ] = useState('')
   const [ sent, setSent ] = useState(false)
   const [ copied, setCopied ] = useState(false)
   
@@ -30,6 +30,16 @@ export function Sender({ readOnly, value, secret, socketId }) {
     })
   }
 
+  useEffect(() => {
+
+    if (readOnly) {
+      setIsSecret(secret)
+      setStateValue(value)
+      setCopied(false)
+    }
+
+  }, [value, secret, readOnly])
+
   async function paste() {
     const text = await navigator.clipboard.readText();
     setStateValue(text)
@@ -44,6 +54,10 @@ export function Sender({ readOnly, value, secret, socketId }) {
     window.open(stateValue, '_blank')
   }
 
+  function reset() {
+    setSent(false)
+  }
+
   if (copied) {
     return (
       <div className="Sender">
@@ -55,7 +69,12 @@ export function Sender({ readOnly, value, secret, socketId }) {
   if (sent) {
     return (
       <div className="Sender">
-        Message sent
+        <div className='message-sent'>
+          Message sent
+        </div>
+        <div className='send-another'>
+          <div className='button' onClick={reset}>Send another</div>
+        </div>
       </div>
     )
   }

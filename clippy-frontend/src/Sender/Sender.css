@@ -51,6 +51,15 @@
   padding: 7px 10px;
 }
 
+.Sender .message-sent {
+  font-size: 20px;
+}
+
+.Sender .send-another {
+  margin-top: 25px;
+  font-size: 14px;
+}
+
 .Sender input {
   all: unset;
   width: 100%;
