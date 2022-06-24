@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import QRCode from 'react-qr-code'
+import GitHubButton from 'react-github-btn'
 import { Sender } from '../Sender'
 import './Receiver.css';
 
@@ -37,6 +38,9 @@ export function Receiver() {
           <QRCode value={`${window.location.origin}/#${id}`} />
           <div className='url'>
             { `${window.location.host}/#${id}` }
+          </div>
+          <div className='github'>
+            <GitHubButton href="https://github.com/manvalls/clippy" data-size="large" aria-label="View manvalls/clippy on GitHub">View on GitHub</GitHubButton>
           </div>
         </>
       ) }
