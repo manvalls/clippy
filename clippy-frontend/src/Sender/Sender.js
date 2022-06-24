@@ -40,6 +40,10 @@ export function Sender({ readOnly, value, secret, socketId }) {
     setCopied(true)
   }
 
+  function open() {
+    window.open(stateValue, '_blank')
+  }
+
   if (copied) {
     return (
       <div className="Sender">
@@ -68,6 +72,7 @@ export function Sender({ readOnly, value, secret, socketId }) {
         <div className='button-container'>
           { !readOnly && !!navigator.clipboard && !!navigator.clipboard.readText && <div className='button' onClick={paste}>Paste</div> }
           { !readOnly && <div className='button' onClick={send}>Send</div> }
+          { readOnly && !isSecret && stateValue.match(/^https?:\/\//) && <div className='button' onClick={open}>Open</div> }
           { readOnly && !!navigator.clipboard && !!navigator.clipboard.writeText && <div className='button' onClick={copy}>Copy</div> }
         </div>
       </div>
