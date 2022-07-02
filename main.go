@@ -4,6 +4,9 @@ import (
 	"embed"
 	"io/fs"
 	"net/http"
+	"net/url"
+	"os"
+	"path"
 	"sync"
 
 	"github.com/gorilla/websocket"
@@ -36,6 +39,7 @@ func handleSocket(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ws.WriteMessage(websocket.TextMessage, []byte(id))
+	ws.WriteMessage(websocket.TextMessage, []byte(os.Getenv("CLIPPY_ORIGIN")))
 
 	mux.Lock()
 	sockets[id] = ws
@@ -66,10 +70,22 @@ func handlePost(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fsys, _ := fs.Sub(assets, "clippy-frontend/build")
+	fsh := http.FileServer(http.FS(fsys))
 
 	http.HandleFunc("/socket", handleSocket)
 	http.HandleFunc("/post", handlePost)
 
-	http.Handle("/", http.FileServer(http.FS(fsys)))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+
+		if r.URL.Path != "/" {
+			_, err := fsys.Open(path.Clean(r.URL.Path)[1:])
+			if os.IsNotExist(err) {
+				r.URL, _ = url.Parse("/")
+			}
+		}
+
+		fsh.ServeHTTP(w, r)
+	})
+
 	http.ListenAndServe(":8090", nil)
 }

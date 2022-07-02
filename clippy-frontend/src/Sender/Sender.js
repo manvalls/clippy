@@ -30,6 +30,13 @@ export function Sender({ readOnly, value, secret, socketId }) {
     })
   }
 
+  function onKeyDown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      send()
+    }
+  }
+
   useEffect(() => {
 
     if (readOnly) {
@@ -83,7 +90,7 @@ export function Sender({ readOnly, value, secret, socketId }) {
     <div className="Sender">
       <div className='wrapper'>
         <div className='input-wrapper'>
-          <input type={ isSecret ? 'password' : 'text'} value={stateValue} readOnly={!!readOnly} onChange={(e) => setStateValue(e.target.value)}/>
+          <input type={ isSecret ? 'password' : 'text'} value={stateValue} readOnly={!!readOnly} onKeyDown={onKeyDown} onChange={(e) => setStateValue(e.target.value)}/>
           <div className='secret-button' onClick={() => setIsSecret(!isSecret)}>
             { isSecret ? <FaEyeSlash /> : <FaEye /> }
           </div>
